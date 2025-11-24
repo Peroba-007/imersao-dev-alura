@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Imersão Dev com Google Gemini - Alura</title>
+    <style>
+        body {
+            background-color: darkcyan;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        #cabecalho {
+            background-color: #f1f1f1;
+            padding: 30px 20px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        #cabecalho h1 {
+            margin: 0 0 5px 0;
+            color: #333;
+            font-size: 2rem;
+        }
+
+        .subtitle {
+            margin: 0 0 20px 0;
+            color: #666;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        #cabecalho div {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        #cabecalho input {
+            padding: 10px 15px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            width: 300px;
+            max-width: 100%;
+        }
+
+        #cabecalho input:focus {
+            outline: none;
+            border-color: darkcyan;
+        }
+
+        #cabecalho button {
+            padding: 10px 25px;
+            background-color: darkcyan;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-weight: 600;
+        }
+
+        #cabecalho button:hover {
+            background-color: #008b8b;
+        }
+
+        main {
+            padding: 20px;
+            min-height: calc(100vh - 300px);
+        }
+
+        .card-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .card h2 {
+            color: darkcyan;
+            margin-top: 0;
+            font-size: 24px;
+        }
+
+        .card p {
+            color: #666;
+            line-height: 1.6;
+            margin: 10px 0;
+        }
+
+        .card p:first-of-type {
+            font-weight: bold;
+            color: darkcyan;
+            font-size: 16px;
+        }
+
+        .card a {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 8px 15px;
+            background-color: darkcyan;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .card a:hover {
+            background-color: #008b8b;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        #rodape {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 40px;
+        }
+
+        .footer-title {
+            font-size: 14px;
+            margin-bottom: 15px;
+            color: #ccc;
+        }
+
+        #rodape ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        #rodape li {
+            display: inline;
+        }
+
+        #rodape a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            transition: color 0.3s ease;
+        }
+
+        #rodape a:hover {
+            color: darkcyan;
+            text-decoration: underline;
+        }
+
+        .card-container p {
+            color: white;
+            text-align: center;
+            grid-column: 1/-1;
+            font-size: 18px;
+            padding: 20px;
+        }
+
+        @media (max-width: 768px) {
+            #cabecalho h1 {
+                font-size: 1.5rem;
+            }
+            
+            .subtitle {
+                font-size: 0.9rem;
+            }
+            
+            #cabecalho input {
+                width: 100%;
+            }
+            
+            .card-container {
+                grid-template-columns: 1fr;
+            }
+            
+            #rodape ul {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header id="cabecalho">
+        <h1>Imersão Dev com Google Gemini</h1>
+        <p class="subtitle">10ª Edição MasterClass - Alura</p>
+        <div>
+            <input type="text" id="searchInput" placeholder="Digite uma linguagem de programação">
+            <button onclick="iniciarBusca()">Buscar</button>  
+        </div>
+    </header>
+
+    <main>
+        <section class="card-container" id="cardContainer">
+            <p>🔍 Digite o nome de uma linguagem de programação para buscar</p>
+        </section>
+    </main>
+
+    <footer id="rodape">
+        <p class="footer-title">Desenvolvido durante a Imersão Dev - Alura</p>
+        <ul>
+            <li>
+                <a href="https://www.linkedin.com/in/eduardo-carapecov-7b6752304" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            </li>
+            <li>
+                <a href="https://github.com/Peroba-007" target="_blank" rel="noopener noreferrer">GitHub</a>
+            </li>
+            <li>
+                <a href="https://www.alura.com.br/" target="_blank" rel="noopener noreferrer">Alura</a>
+            </li>
+        </ul>
+    </footer>
+
+    <script>
+        // Dados embutidos
+        const allData = [
+            {
+                "nome": "JavaScript",
+                "descricao": "JavaScript é a linguagem de programação versátil e essencial para desenvolvimento web moderno.",
+                "ano": 1995,
+                "link": "https://developer.mozilla.org/pt-BR/docs/Web/JavaScript"
+            },
+            {
+                "nome": "Python",
+                "descricao": "Python é uma linguagem de programação de alto nível, interpretada e de propósito geral.",
+                "ano": 1991,
+                "link": "https://docs.python.org/3/"
+            },
+            {
+                "nome": "Java",
+                "descricao": "Java é uma linguagem de programação orientada a objetos robusta e multiplataforma.",
+                "ano": 1995,
+                "link": "https://docs.oracle.com/en/java/"
+            },
+            {
+                "nome": "C#",
+                "descricao": "C# é uma linguagem de programação moderna desenvolvida pela Microsoft.",
+                "ano": 2000,
+                "link": "https://learn.microsoft.com/pt-br/dotnet/csharp/"
+            },
+            {
+                "nome": "Ruby",
+                "descricao": "Ruby é uma linguagem de programação dinâmica e orientada a objetos.",
+                "ano": 1995,
+                "link": "https://www.ruby-lang.org/pt/documentation/"
+            },
+            {
+                "nome": "C++",
+                "descricao": "C++ é uma linguagem de programação de propósito geral e multi-paradigma.",
+                "ano": 1985,
+                "link": "https://cplusplus.com/"
+            },
+            {
+                "nome": "PHP",
+                "descricao": "PHP é uma linguagem de script popular para desenvolvimento web server-side.",
+                "ano": 1995,
+                "link": "https://www.php.net/manual/pt_BR/"
+            },
+            {
+                "nome": "Go",
+                "descricao": "Go é uma linguagem de programação de código aberto desenvolvida pelo Google.",
+                "ano": 2009,
+                "link": "https://go.dev/doc/"
+            }
+        ];
+
+        const cardContainer = document.getElementById('cardContainer');
+        const searchInput = document.getElementById('searchInput');
+
+        function iniciarBusca() {
+            const termoBusca = searchInput.value.toLowerCase().trim();
+            
+            if (termoBusca === '') {
+                cardContainer.innerHTML = "<p>🔍 Digite o nome de uma linguagem de programação para buscar</p>";
+                return;
+            }
+            
+            const dadosFiltrados = allData.filter(item => 
+                item.nome.toLowerCase().includes(termoBusca) ||
+                item.descricao.toLowerCase().includes(termoBusca)
+            );
+            
+            renderizarCards(dadosFiltrados);
+        }
+
+        function renderizarCards(dados) {
+            cardContainer.innerHTML = "";
+
+            if (dados.length === 0) {
+                cardContainer.innerHTML = "<p>😕 Nenhuma linguagem encontrada. Tente: JavaScript, Python, Java, C#, Ruby, C++, PHP ou Go</p>";
+                return;
+            }
+
+            dados.forEach(item => {
+                const article = document.createElement("article");
+                article.className = "card";
+                article.innerHTML = `
+                    <h2>${item.nome}</h2>
+                    <p>${item.ano}</p>
+                    <p>${item.descricao}</p>
+                    <a href="${item.link}" target="_blank">Saiba Mais</a>`;
+                cardContainer.appendChild(article);
+            });
+        }
+
+        searchInput.addEventListener("keypress", (e) => {
+            if (e.key === 'Enter') {
+                iniciarBusca();
+            }
+        });
+
+        searchInput.addEventListener("input", iniciarBusca);
+
+        console.log("✅ Projeto carregado com sucesso!");
+    </script>
+</body>
+</html>
